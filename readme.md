@@ -1,55 +1,50 @@
-### Overview
+Subject: Serious Academic Misconduct: Irreproducible Results in Fig. 19 and an Author Lacking Academic Integrity
+Overview
 This issue documents a serious discrepancy between the performance claimed in the paper "Multiple Reference Signals Collaborative Sensing..." (published in IEEE TVT) and the results produced by the official code provided in this repository. Furthermore, it records the author's refusal to address the issue, culminating in blocking further email communication.
 
-### Background
-I initially attempted to reproduce Figure 19 from the paper, which shows the RMSE of the proposed CS-based velocity estimation algorithm versus SNR. For this purpose, I used the joint_test_CS_v.m function from the authors' repository `https://github.com/echo-stack/Multiple-RS-Collaborative-Sensing-for-ISAC` without any modification, called from a simple wrapper script to iterate through SNR values.
+Background
+I initially attempted to reproduce Figure 19 from the paper, which shows the RMSE of the proposed CS-based velocity estimation algorithm versus SNR. For this purpose, I used the joint_test_CS_v.m function from the authors' repository https://github.com/echo-stack/Multiple-RS-Collaborative-Sensing-for-ISAC without any modification, called from a simple wrapper script to iterate through SNR values.
 
 The results were not even remotely close to those published. The performance of the official code was exceptionally poor, significantly underperforming the claims made in the paper.
 
-###Communication with the Author
+Communication with the Author
 I contacted the first author, Dr. Zhiqing Wei, via email to report this discrepancy and seek a reasonable explanation. After an initial exchange, I sent a follow-up email detailing my concerns with the methodology and the substantial performance gap.
 
 The points raised in my final email were:
 
-+ Incorrect Claims of Superiority: The author's own simulation data (sent in the exchange) showed the CS algorithm was only marginally better than a standard 2D-FFT in a negligible SNR window (-19dB to -17dB) and inferior everywhere else. Attached below are the simulation plots—one provided by the author via email, and one from my own replication. As is evident from the data, the performance advantage of the CS algorithm is completely negligible. Nevertheless, the author shamelessly claims superior performance for their algorithm.
+Incorrect Claims of Superiority: The author's own simulation data (sent in the exchange) showed the CS algorithm was only marginally better than a standard 2D-FFT in a negligible SNR window (-19dB to -17dB) and inferior everywhere else. Attached below are the simulation plots—one provided by the author via email, and one from my own replication. As is evident from the data, the performance advantage of the CS algorithm is completely negligible. Nevertheless, the author shamelessly claims superior performance for their algorithm.
 
 <img width="2187" height="1059" alt="Image" src="https://github.com/user-attachments/assets/ef20f470-afc4-4cdb-9157-676746814014" />
 
 <img width="1191" height="474" alt="Image" src="https://github.com/user-attachments/assets/98910c5c-deee-42eb-8ece-a445489ba5cf" />
 
-+ Misrepresentation of Standard Techniques: The paper presents the "accumulate-then-detect" method as a key innovation, whereas it is a common-sense baseline for 2D-FFT.
+Misrepresentation of Standard Techniques: The practice of incoherently accumulating results from all subcarriers before performing detection (i.e., "accumulate-then-detect") is a standard and common-sense baseline in this field. To present this as a key innovation of the CS algorithm, or as a primary reason for its performance improvement, is a serious misrepresentation of established methods.
 
-+ Unjustifiable Computational Cost: The algorithm runs over 250 times slower than the 2D-FFT baseline, with no meaningful performance gain.
+Unjustifiable Computational Cost: The algorithm runs over 250 times slower than the 2D-FFT baseline, with no meaningful performance gain.
 
-In this email, I urged the author to consider submitting an erratum  to IEEE TVT to maintain academic integrity.
+In this email, I urged the author to consider submitting an erratum to IEEE TVT to maintain academic integrity.
 
-### Current Situation
+Current Situation
 Following my last email, the author has blocked my email address, effectively refusing any further communication on this matter. A screenshot of the delivery failure notification is attached.
 
 <img width="1290" height="575" alt="Image" src="https://github.com/user-attachments/assets/1318490a-085b-46ef-8e62-e64b253e8be9" />
 
-
-### Call to the Community
-
+Call to the Community
 Given the author's refusal to engage, I am now raising this issue publicly. The significant mismatch between the published claims and the provided code, coupled with the author's subsequent actions, points to serious issues that undermine the credibility of this work.
 
 I believe this requires scrutiny from the wider research community. Reproducibility is a cornerstone of scientific progress, and claims made in peer-reviewed publications must be verifiable.
 
-I am attaching my wrapper script and the plot generated from the official code for full transparency. I invite others to run these simulations and share their findings.
+I am attaching my wrapper script for full transparency. I invite others to run these simulations and share their findings.
 
 Sincerely,
 
 Michael
 
-### My final email sent
-
+My final email sent
 <img width="1938" height="914" alt="Image" src="https://github.com/user-attachments/assets/b91e8cf1-a088-4e1f-b754-f81925bcffb6" />
 
-### Code
-
-` joint_test_CS_v` and `joint_test_CS_v` can be found in their project
-
-```matlab
+Code Used for Replication
+The joint_test_v.m and joint_test_CS_v.m functions can be found in the authors' official project repository. The following wrapper script was used to generate the performance comparison.
 
 % -------------------------------------------------------------------------
 % MATLAB Script: OFDM Radar Velocity Estimation Performance and Computation Time Simulation
@@ -157,5 +152,3 @@ ylabel('Single Run Computation Time (seconds)', 'FontSize', 12);
 grid on;
 set(gca, 'FontSize', 10);
 fprintf('Script execution finished.\n');
-
-```
